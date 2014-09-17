@@ -24,11 +24,12 @@ public class LonelyTwitterActivity extends Activity {
 	
 	private EditText bodyText;
 	
+	private ListView oldTweetsList;
+	
 	private ArrayList<Tweet> tweets;
 	
 	private ArrayAdapter<Tweet> tweetsViewAdapter;
-	
-	private ListView oldTweetsList;
+
 
 	
 	/** Called when the activity is first created. */
@@ -87,7 +88,8 @@ public class LonelyTwitterActivity extends Activity {
 	}
 	
 	public void saveTweets(List<Tweet> lts) {
-		try {
+		try {	
+			private ListView oldTweetsList;
 			FileOutputStream fos = new FileOutputStream(FILENAME);
 			ObjectOutputStream oos = new ObjectOutputStream(fos);
 			oos.writeObject(lts);
