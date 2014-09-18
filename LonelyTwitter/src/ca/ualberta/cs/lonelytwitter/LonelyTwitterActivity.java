@@ -60,9 +60,16 @@ public class LonelyTwitterActivity extends Activity {
 	public void save(View v) {
 		
 		String text = bodyText.getText().toString();
-		Tweet tweet = new Tweet(new Date(), text);
 		
-		tweets.add(tweet);
+		if(text.contains("*")){
+			StarredTweet sTweet = new StarredTweet(new Date(),text);
+			tweets.add(sTweet);
+		}
+		else{
+			Tweet tweet = new Tweet(new Date(), text);
+			tweets.add(tweet);
+		}
+		
 		tweetsViewAdapter.notifyDataSetChanged();
 		
 		bodyText.setText("");
