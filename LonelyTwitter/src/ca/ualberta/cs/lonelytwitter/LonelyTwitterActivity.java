@@ -10,6 +10,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import ca.ualberta.cs.lonelyTwitter.data.FileDataManager;
+import ca.ualberta.cs.lonelyTwitter.data.IDataManager;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,8 +22,8 @@ import android.widget.EditText;
 import android.widget.ListView;
 
 public class LonelyTwitterActivity extends Activity {
-
-	private static final String FILENAME = "file.sav";
+	
+	private IDataManager dataManager;
 	
 	private EditText bodyText;
 	
@@ -38,6 +41,9 @@ public class LonelyTwitterActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		
 		setContentView(R.layout.main);
+		
+		dataManager = new FileDataManager();
+		
 		bodyText = (EditText) findViewById(R.id.body);
 		oldTweetsList = (ListView) findViewById(R.id.oldTweetsList);
 	}
@@ -46,7 +52,7 @@ public class LonelyTwitterActivity extends Activity {
 	protected void onStart() {
 		super.onStart();
 		
-		tweets = loadTweets();
+		tweets = dataManager.loadTweets();
 		tweetsViewAdapter = new ArrayAdapter<Tweet>(this, R.layout.list_item, tweets);
 		oldTweetsList.setAdapter(tweetsViewAdapter);
 	}
@@ -60,43 +66,13 @@ public class LonelyTwitterActivity extends Activity {
 		tweetsViewAdapter.notifyDataSetChanged();
 		
 		bodyText.setText("");
-		saveTweets(tweets);
+		dataManager.saveTweets(tweets);
 	}
 	
 	public void clear(View v) {
 		
 		tweets.clear();
 		tweetsViewAdapter.notifyDataSetChanged();
-		saveTweets(tweets);
-	}
-	
-	public ArrayList<Tweet> loadTweets() {
-		ArrayList<Tweet> lts = new ArrayList<Tweet>();
-
-		try {
-			FileInputStream fis = new FileInputStream(FILENAME);
-			ObjectInputStream ois = new ObjectInputStream(fis);
-
-			lts = (ArrayList<Tweet>) ois.readObject();
-
-		} catch (Exception e) {
-			Log.i("LonelyTwitter", "Error casting");
-			e.printStackTrace();
-		} 
-
-		return lts;
-	}
-	
-	public void saveTweets(List<Tweet> lts) {
-		try {	
-			private ListView oldTweetsList;
-			FileOutputStream fos = new FileOutputStream(FILENAME);
-			ObjectOutputStream oos = new ObjectOutputStream(fos);
-			oos.writeObject(lts);
-			fos.close();
-		} 
-		catch (Exception e) {
-			e.printStackTrace();
-		}
+		dataManager.saveTweets(tweets);
 	}
 }
