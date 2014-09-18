@@ -7,31 +7,14 @@ import java.io.Serializable;
 import java.util.Date;
 
 
-public class Tweet implements Serializable {
-	private Date tweetDate;
-	private String tweetBody;
+public class Tweet extends AbstractTweet implements Serializable {
 
 
-	public Tweet(Date tweetDate, String tweetBody) {
-		super();
-		this.tweetDate = tweetDate;
-		this.tweetBody = tweetBody;
-	}
+	public Tweet(Date tweetDate, String tweetBody)
+	{
 
-	public Date getTweetDate() {
-		return tweetDate;
-	}
-
-	public void setTweetDate(Date tweetDate) {
-		this.tweetDate = tweetDate;
-	}
-
-	public String getTweetBody() {
-		return tweetBody;
-	}
-
-	public void setTweetBody(String tweetBody) {
-		this.tweetBody = tweetBody;
+		super(tweetDate, tweetBody);
+		// TODO Auto-generated constructor stub
 	}
 
 	public String toString() {

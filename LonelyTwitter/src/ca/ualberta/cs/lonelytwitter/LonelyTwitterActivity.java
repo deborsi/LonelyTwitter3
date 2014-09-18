@@ -29,9 +29,9 @@ public class LonelyTwitterActivity extends Activity {
 	
 	private ListView oldTweetsList;
 	
-	private ArrayList<Tweet> tweets;
+	private ArrayList<AbstractTweet> tweets;
 	
-	private ArrayAdapter<Tweet> tweetsViewAdapter;
+	private ArrayAdapter<AbstractTweet> tweetsViewAdapter;
 
 
 	
@@ -53,7 +53,7 @@ public class LonelyTwitterActivity extends Activity {
 		super.onStart();
 		
 		tweets = dataManager.loadTweets();
-		tweetsViewAdapter = new ArrayAdapter<Tweet>(this, R.layout.list_item, tweets);
+		tweetsViewAdapter = new ArrayAdapter<AbstractTweet>(this, R.layout.list_item, tweets);
 		oldTweetsList.setAdapter(tweetsViewAdapter);
 	}
 	
